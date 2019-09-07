@@ -1,0 +1,77 @@
+<template>
+	<div class="icons">
+		<swiper>
+			<swiper-slide v-for="(page,index) of pages" :key="index">
+			<div class="icon" v-for="item of page" :key="item.id">
+				<div class="icon-img"> 
+					<img class="icon-imgcontent" :src="item.imgUrl">
+				</div>
+				<p class="icon-desc">{{item.desc}}</p>
+			</div>
+			</swiper-slide>
+			
+	</swiper>
+	</div>
+</template>
+<script type="text/javascript">
+	export default  {
+		name : 'HomeIcons',
+		props : {
+			list : Array
+		},
+		computed : {
+			pages () {
+				const pages = []
+				this.list.forEach((item,index) =>{
+					   const page =Math.floor(index/8)
+					   if (!pages[page]){
+					   	pages[page] = []
+					   }
+					   pages[page].push(item)
+				})
+				return pages
+			}
+		}
+	};
+</script>
+<style type="text/css" lang="stylus" scoped>
+	// 可以在第二行滑动
+	.icons >>> .swiper-container
+		height : 0
+		padding-bottom : 50%
+	.icons
+		margin-top : 10px
+		.icon
+			height : 0
+			position : relative
+			overflow : hidden
+			float : left
+			width : 25%
+			padding-bottom : 25%
+			
+			.icon-img
+				position : absolute
+				top : 0
+				left : 0
+				right : 0
+				bottom : 22px
+				box-sizing : border-box
+				padding : 5px
+				
+				.icon-imgcontent
+					display : block
+					margin : 0 auto
+					height : 100%
+			.icon-desc
+				position : absolute
+				left : 0
+				right : 0
+				bottom : 0
+				height : 22px
+				line-height : 22px
+				text-align : center
+				color : #333
+				overflow : hidden
+				white-space : nowrap
+				text-overflow : ellipsis
+</style>
